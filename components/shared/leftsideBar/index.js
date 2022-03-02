@@ -1,7 +1,5 @@
-export default function LeftsideBar() {
-  return (
-    <>
+const LeftsideBar = ({ showMobilemenu }) => {
+  return <></>;
+};
 
-    </>
-  );
-}
+export default LeftsideBar;

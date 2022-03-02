@@ -1,19 +1,23 @@
 import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
+import { Web3Provider } from "../components/providers";
+import FullLayout from "../src/layouts/FullLayout";
+import Head from "next/head";
+import "../styles/style.scss";
 import "../styles/globals.css";
 
-const ChainId = [4];
-const connectors = {
-  injected: {},
-};
-
 function MyApp({ Component, pageProps }) {
-  const Layout = Component.Layout;
   return (
-    <Layout>
-      <ThirdwebWeb3Provider supportedChainIds={ChainId} connectors={connectors}>
+    <Web3Provider>
+      <Head>
+        <title>WallE crypto wallet</title>
+        <meta name="description" content="WallE crypto wallet" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <FullLayout>
         <Component {...pageProps} />
-      </ThirdwebWeb3Provider>
-    </Layout>
+      </FullLayout>
+    </Web3Provider>
   );
 }
 
