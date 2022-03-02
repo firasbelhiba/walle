@@ -5,19 +5,29 @@ import Head from "next/head";
 import "../styles/style.scss";
 import "../styles/globals.css";
 
+const supportedChainIds = [4];
+const connectors = {
+  injected: {},
+};
+
 function MyApp({ Component, pageProps }) {
   return (
-    <Web3Provider>
-      <Head>
-        <title>WallE crypto wallet</title>
-        <meta name="description" content="WallE crypto wallet" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <ThirdwebWeb3Provider
+      supportedChainIds={supportedChainIds}
+      connectors={connectors}
+    >
+      <Web3Provider>
+        <Head>
+          <title>WallE crypto wallet</title>
+          <meta name="description" content="WallE crypto wallet" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <FullLayout>
-        <Component {...pageProps} />
-      </FullLayout>
-    </Web3Provider>
+        <FullLayout>
+          <Component {...pageProps} />
+        </FullLayout>
+      </Web3Provider>
+    </ThirdwebWeb3Provider>
   );
 }
 

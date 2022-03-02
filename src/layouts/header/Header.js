@@ -17,11 +17,13 @@ import {
 import LogoWhite from "../../assets/images/logos/amplelogowhite.svg";
 import user1 from "../../assets/images/users/user1.jpg";
 import { useWeb3Hook } from "../../../components/providers";
+import { useAccount } from "../../../components/web3/hooks/useAccount";
 
 const Header = ({ showMobmenu }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const { connect, isWeb3Loaded, isLoaded } = useWeb3Hook();
+  const { account } = useAccount();
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const Handletoggle = () => {
@@ -55,6 +57,7 @@ const Header = ({ showMobmenu }) => {
 
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
+          {account}
           <NavItem>
             {isLoaded ? (
               <a className="nav-link" onClick={connect}>
