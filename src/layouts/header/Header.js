@@ -57,7 +57,6 @@ const Header = ({ showMobmenu }) => {
 
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
-          {account}
           <NavItem>
             {isLoaded ? (
               <a className="nav-link" onClick={connect}>

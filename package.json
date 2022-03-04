@@ -29,6 +29,8 @@
     "react-chartjs-2": "^4.0.1",
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",
+    "react-icons": "^4.3.1",
+    "react-modal": "^3.14.4",
     "react-redux": "^7.2.6",
     "reactstrap": "^9.0.1",
     "sass": "^1.49.9",

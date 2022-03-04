@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const SalesChart = () => {
+const SalesChart = ({ walletBalance }) => {
   const chartoptions = {
     series: [
       {
@@ -48,10 +48,11 @@ const SalesChart = () => {
   return (
     <Card>
       <CardBody>
-        <CardTitle tag="h5">Sales Summary</CardTitle>
         <CardSubtitle className="text-muted" tag="h6">
-          Yearly Sales Report
+          Portfolio Balance
         </CardSubtitle>
+        <CardTitle tag="h5"> {walletBalance} $ </CardTitle>
+
         <Chart
           type="area"
           width="100%"

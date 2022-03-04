@@ -4,6 +4,7 @@ import FullLayout from "../src/layouts/FullLayout";
 import Head from "next/head";
 import "../styles/style.scss";
 import "../styles/globals.css";
+import Script from "next/script";
 
 const supportedChainIds = [4];
 const connectors = {
@@ -26,6 +27,8 @@ function MyApp({ Component, pageProps }) {
         <FullLayout>
           <Component {...pageProps} />
         </FullLayout>
+        <Script src="/assets/bundles/libscripts.bundle.js" />
+
       </Web3Provider>
     </ThirdwebWeb3Provider>
   );

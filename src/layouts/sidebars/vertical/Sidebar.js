@@ -2,6 +2,13 @@ import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "../../logo/Logo";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Modal from "react-modal";
+import TransferModal from "../../../components/dashboard/TransferModal";
+import { useBalance } from "../../../../components/web3/hooks/useBalance";
+import { useAccount } from "../../../../components/web3/hooks/useAccount";
+import { useEffect, useState } from "react";
+
+Modal.setAppElement("#__next");
 
 const navigation = [
   {
@@ -56,9 +63,29 @@ const navigation = [
   },
 ];
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#0a0b0d",
+    padding: 0,
+    border: "none",
+  },
+  overlay: {
+    backgroundColor: "rgba(10,11,13,0.75)",
+  },
+};
+
 const Sidebar = ({ showMobilemenu }) => {
   let curl = useRouter();
   const location = curl.pathname;
+  const [transferButton, setTransferButton] = useState(false);
+  const { sanityItems, thirdwebItems } = useBalance();
+  const { account } = useAccount();
+
 
   return (
     <div className="p-3">
@@ -90,15 +117,26 @@ const Sidebar = ({ showMobilemenu }) => {
             </NavItem>
           ))}
           <Button
-            color="danger"
+            color="primary"
             tag="a"
-            target="_blank"
             className="mt-3"
-            href="https://www.wrappixel.com/templates/ample-react-dashboard/?ref=33"
+            onClick={() => setTransferButton(true)}
           >
-            Upgrade To Pro
+            Send / Recieve
           </Button>
         </Nav>
+        <Modal
+          isOpen={transferButton}
+          onRequestClose={() => curl.push("/dashboard")}
+          style={customStyles}
+        >
+          <TransferModal
+            setTransferButton={setTransferButton}
+            sanityItems={sanityItems}
+            thirdwebItems={thirdwebItems}
+            walletAddress={account}
+          />
+        </Modal>
       </div>
     </div>
   );
