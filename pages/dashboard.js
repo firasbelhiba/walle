@@ -18,7 +18,7 @@ const sdk = new ThirdwebSDK(
 
 const Dashboard = () => {
   const { account } = useAccount();
-  const { web3 } = useWeb3Hook();
+  const { web3, contract } = useWeb3Hook();
   const [walletBalance, setWalletBalance] = useState(0);
   const { sanityItems, thirdwebItems } = useBalance();
 
@@ -31,14 +31,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getTotalBalance = async () => {
-      const totalBalance = await Promise.all(
-        thirdwebItems.map(async (token) => {
-          const balance = await token.balanceOf(account);
+      const accounts = await web3.eth.getAccounts();
+      let balance = await contract.methods.balanceOf(accounts[0]).call();
+      balance = web3.utils.fromWei(balance.toString(), "Ether");
 
-          return Number(balance.displayValue * tokenToUsd[token.address]);
-        })
-      );
-      setWalletBalance(totalBalance.reduce((a, b) => a + b, 0));
+      setWalletBalance(balance);
     };
 
     account && web3 && getTotalBalance();

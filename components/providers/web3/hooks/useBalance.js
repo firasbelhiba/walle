@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { ThirdwebSDK } from "@3rdweb/sdk";
+import { useWeb3Hook } from "..";
 
-const sdk = new ThirdwebSDK(
-  new ethers.Wallet(
-    "4ee854f3b39f337c0345bb0258ec4755d37a71f7dd7048654af050a7e57c2491",
-    ethers.getDefaultProvider(
-      "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
-    )
-  )
-);
+// const sdk = new ThirdwebSDK(
+//   new ethers.Wallet(
+//     "4ee854f3b39f337c0345bb0258ec4755d37a71f7dd7048654af050a7e57c2491",
+//     ethers.getDefaultProvider(
+//       "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+//     )
+//   )
+// );
 
 export const handler = () => () => {
   const [sanityItems, setSanityItems] = useState([]);
   const [thirdwebItems, setThirdwebItems] = useState([]);
+  const { web3 } = useWeb3Hook();
 
   useEffect(() => {
     const getCoins = async () => {
@@ -22,11 +24,12 @@ export const handler = () => () => {
       );
 
       const _sanityItems = (await coins.json()).result;
+      console.log(sanityItems);
       setSanityItems(_sanityItems);
 
-      setThirdwebItems(
-        _sanityItems.map((item) => sdk.getTokenModule(item.contractAddress))
-      );
+      // setThirdwebItems(
+      //   _sanityItems.map((item) => sdk.getTokenModule(item.contractAddress))
+      // );
     };
 
     return getCoins();

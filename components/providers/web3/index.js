@@ -8,6 +8,7 @@ const {
 
 import detectEthereumProvider from "@metamask/detect-provider";
 import Web3 from "web3";
+import { loadContract } from "../../../utils/loadContract";
 import { setupHooks } from "./hooks/setupHooks";
 
 const Web3Context = createContext(null);
@@ -24,7 +25,54 @@ export default function Web3Provider({ children }) {
       const provider = await detectEthereumProvider();
       if (provider) {
         const web3 = new Web3(provider);
-        setWeb3Api({ provider, web3, contract: null, isLoaded: false });
+        const contract = await loadContract("DaiToken", web3);
+        const accounts = await web3.eth.getAccounts();
+        let balance = await contract.methods.balanceOf(accounts[0]).call();
+        balance = web3.utils.fromWei(balance.toString(), "Ether");
+        let decimals = web3.utils.toBN(18);
+        let amount = web3.utils.toBN(100);
+        //console.log(amount * 1000000000000000000)
+        // contract.methods
+        //   .transfer(
+        //     "0x7212eEef1eC89AE2123E7b98Eb5aAa4bA8127a61",
+        //     "200000000000000000000"
+        //   )
+        //   .send({ from: "0xD53FB57BDe9A2Fe3c11C9820Da17592518D19892" });
+        // let data = contract.methods
+        //   .transfer(
+        //     "0x7212eEef1eC89AE2123E7b98Eb5aAa4bA8127a61",
+        //     "200000000000000000000"
+        //   )
+        //   .encodeABI();
+        // let rawTx = {
+        //   gasPrice: "0x3b9aca00",
+        //   gasLimit: web3.utils.toHex("100000"),
+        //   to: "0x7212eEef1eC89AE2123E7b98Eb5aAa4bA8127a61",
+        //   data: data,
+        // };
+
+        // web3.eth.accounts.signTransaction(
+        //   rawTx,
+        //   "78e20ad1aaf2807594d689596be844feab2e954e7d3bbe4da2894031101624a7",
+        //   (err, signedTx) => {
+        //     if (err) {
+        //       return callback(err);
+        //     } else {
+        //       console.log(signedTx);
+        //       return web3.eth.sendSignedTransaction(
+        //         signedTx.rawTransaction,
+        //         (err, res) => {
+        //           if (err) {
+        //             console.error(err);
+        //           } else {
+        //             console.log("success", res);
+        //           }
+        //         }
+        //       );
+        //     }
+        //   }
+        // );
+        setWeb3Api({ provider, web3, contract, isLoaded: false });
       } else {
         setWeb3Api((api) => ({ ...api, isLoaded: false }));
         console.error("Please install Metamask . ");
