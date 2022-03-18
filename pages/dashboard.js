@@ -1,49 +1,139 @@
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import { ThirdwebSDK } from "@3rdweb/sdk";
-import { useAccount } from "../components/web3/hooks/useAccount";
-import { useBalance } from "../components/web3/hooks/useBalance";
+import { useEffect, useState } from 'react'
+import { ethers } from 'ethers'
+import { ThirdwebSDK } from '@3rdweb/sdk'
+import { useAccount } from '../components/web3/hooks/useAccount'
+import { useBalance } from '../components/web3/hooks/useBalance'
 
-import { useWeb3Hook } from "../components/providers";
-import SalesChart from "../src/components/dashboard/SalesChart";
+import { useWeb3Hook } from '../components/providers'
+import SalesChart from '../src/components/dashboard/SalesChart'
 
 const sdk = new ThirdwebSDK(
   new ethers.Wallet(
-    "4ee854f3b39f337c0345bb0258ec4755d37a71f7dd7048654af050a7e57c2491",
+    '4ee854f3b39f337c0345bb0258ec4755d37a71f7dd7048654af050a7e57c2491',
     ethers.getDefaultProvider(
-      "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
-    )
-  )
-);
+      'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+    ),
+  ),
+)
 
 const Dashboard = () => {
-  const { account } = useAccount();
-  const { web3, contract } = useWeb3Hook();
-  const [walletBalance, setWalletBalance] = useState(0);
-  const { sanityItems, thirdwebItems } = useBalance();
+  const { account } = useAccount()
+  const {
+    web3,
+    cryptoData,
+    polygonTokenContract,
+    polkadotTokenContract,
+    avalancheTokenContract,
+    axieInfinityTokenContract,
+    bitcoinTokenContract,
+    cardanoTokenContract,
+  } = useWeb3Hook()
+  const [walletBalance, setWalletBalance] = useState(0)
+
+  //crypto assets balances
+  const [polygonBalance, setPolygonBalance] = useState(0)
+  const [polkadotBalance, setPolkadotBalance] = useState(0)
+  const [avalancheBalance, setAvalancheBalance] = useState(0)
+  const [axieInfinityBalance, setAxieInfinityBalance] = useState(0)
+  const [bitcoinBalance, setBitcoinBalance] = useState(0)
+  const [cardanoBalance, setCardanoBalance] = useState(0)
+
+  const { sanityItems, thirdwebItems } = useBalance()
+  // crypto data
+  const [data, setData] = useState()
 
   // Conversion to USD
-  const tokenToUsd = {};
+  const tokenToUsd = {}
 
   sanityItems.forEach((token) => {
-    tokenToUsd[token.contractAddress] = Number(token.usdPrice);
-  });
+    tokenToUsd[token.contractAddress] = Number(token.usdPrice)
+  })
 
   useEffect(() => {
     const getTotalBalance = async () => {
-      const accounts = await web3.eth.getAccounts();
-      let balance = await contract.methods.balanceOf(accounts[0]).call();
-      balance = web3.utils.fromWei(balance.toString(), "Ether");
+      await setData(cryptoData)
+      const accounts = await web3.eth.getAccounts()
 
-      setWalletBalance(balance);
-    };
+      // fetch Polygon balance
+      let balanceofPolygon = await polygonTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofPolygon = web3.utils.fromWei(
+        balanceofPolygon.toString(),
+        'Ether',
+      )
 
-    account && web3 && getTotalBalance();
-  }, [account, thirdwebItems, sanityItems]);
+      // fetch Polkadot balance
+      let balanceofPolkadot = await polkadotTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofPolkadot = web3.utils.fromWei(
+        balanceofPolkadot.toString(),
+        'Ether',
+      )
+
+      // fetch Avalanche balance
+      let balanceofAvalanche = await avalancheTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofAvalanche = web3.utils.fromWei(
+        balanceofAvalanche.toString(),
+        'Ether',
+      )
+
+      // fetch Axie Infinity balance
+      let balanceofAxieInfinity = await axieInfinityTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofAxieInfinity = web3.utils.fromWei(
+        balanceofAxieInfinity.toString(),
+        'Ether',
+      )
+
+      // fetch Bitcoin balance
+      let balanceofBitcoin = await bitcoinTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofBitcoin = web3.utils.fromWei(
+        balanceofBitcoin.toString(),
+        'Ether',
+      )
+
+      // fetch Avalanche balance
+      let balanceofCardano = await cardanoTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofCardano = web3.utils.fromWei(
+        balanceofCardano.toString(),
+        'Ether',
+      )
+
+      setPolygonBalance(balanceofPolygon)
+      setPolkadotBalance(balanceofPolkadot)
+      setAvalancheBalance(balanceofAvalanche)
+      setAxieInfinityBalance(balanceofAxieInfinity)
+      setBitcoinBalance(balanceofBitcoin)
+      setCardanoBalance(balanceofCardano)
+
+      await console.log('ddd', data)
+    }
+
+    account && web3 && getTotalBalance()
+  }, [account, thirdwebItems, sanityItems, data])
 
   return (
     <div>
-      <SalesChart walletBalance={walletBalance.toLocaleString()} />
+      <SalesChart
+        walletBalance={walletBalance.toLocaleString()}
+        polygonBalance={polygonBalance.toLocaleString()}
+        polkadotBalance={polkadotBalance.toLocaleString()}
+        avalancheBalance={avalancheBalance.toLocaleString()}
+        axieInfinityBalance={axieInfinityBalance.toLocaleString()}
+        bitcoinBalance={bitcoinBalance.toLocaleString()}
+        cardanoBalance={cardanoBalance.toLocaleString()}
+
+        cryptoAssetsData={data}
+      />
       <div className="row g-3 mb-3 row-deck">
         <div className="col-xl-4 col-xxl-5">
           <div className="card">
@@ -55,12 +145,12 @@ const Dashboard = () => {
               {/* Progress */}
               <div
                 className="progress rounded-pill mb-1"
-                style={{ height: "5px" }}
+                style={{ height: '5px' }}
               >
                 <div
                   className="progress-bar chart-color1"
                   role="progressbar"
-                  style={{ width: "32%" }}
+                  style={{ width: '32%' }}
                   aria-valuenow={32}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -68,7 +158,7 @@ const Dashboard = () => {
                 <div
                   className="progress-bar chart-color2"
                   role="progressbar"
-                  style={{ width: "23%" }}
+                  style={{ width: '23%' }}
                   aria-valuenow={23}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -76,7 +166,7 @@ const Dashboard = () => {
                 <div
                   className="progress-bar chart-color3"
                   role="progressbar"
-                  style={{ width: "13%" }}
+                  style={{ width: '13%' }}
                   aria-valuenow={13}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -84,7 +174,7 @@ const Dashboard = () => {
                 <div
                   className="progress-bar chart-color4"
                   role="progressbar"
-                  style={{ width: "7%" }}
+                  style={{ width: '7%' }}
                   aria-valuenow={7}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -344,7 +434,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

@@ -4,33 +4,57 @@ const {
   useEffect,
   useState,
   useMemo,
-} = require("react");
+} = require('react')
 
-import detectEthereumProvider from "@metamask/detect-provider";
-import Web3 from "web3";
-import { loadContract } from "../../../utils/loadContract";
-import { setupHooks } from "./hooks/setupHooks";
+import detectEthereumProvider from '@metamask/detect-provider'
+import Web3 from 'web3'
+import { getCryptoassetsData } from '../../../utils/getCryptoassetsData'
+import { loadContract } from '../../../utils/loadContract'
+import { setupHooks } from './hooks/setupHooks'
 
-const Web3Context = createContext(null);
+const Web3Context = createContext(null)
 
 export default function Web3Provider({ children }) {
   const [web3Api, setWeb3Api] = useState({
     provider: null,
     web3: null,
-    contract: null,
+    cryptoData: null,
+    polygonTokenContract: null,
+    polkadotTokenContract: null,
+    avalancheTokenContract: null,
+    axieInfinityTokenContract: null,
+    bitcoinTokenContract: null,
+    cardanoTokenContract: null,
     isLoaded: true,
-  });
+  })
   useEffect(() => {
     const loadProvider = async () => {
-      const provider = await detectEthereumProvider();
+      const provider = await detectEthereumProvider()
       if (provider) {
-        const web3 = new Web3(provider);
-        const contract = await loadContract("DaiToken", web3);
-        const accounts = await web3.eth.getAccounts();
-        let balance = await contract.methods.balanceOf(accounts[0]).call();
-        balance = web3.utils.fromWei(balance.toString(), "Ether");
-        let decimals = web3.utils.toBN(18);
-        let amount = web3.utils.toBN(100);
+        const web3 = new Web3(provider)
+
+        // Load Token contracts
+        const polygonTokenContract = await loadContract('PolygonToken', web3)
+        const polkadotTokenContract = await loadContract('PolkadotToken', web3)
+        const avalancheTokenContract = await loadContract(
+          'AvalancheToken',
+          web3,
+        )
+        const axieInfinityTokenContract = await loadContract(
+          'AxieInfinityToken',
+          web3,
+        )
+        const bitcoinTokenContract = await loadContract('BitcoinToken', web3)
+        const cardanoTokenContract = await loadContract('CardanoToken', web3)
+
+        const accounts = await web3.eth.getAccounts()
+        let balance = await polygonTokenContract.methods
+          .balanceOf(accounts[0])
+          .call()
+        let decimals = web3.utils.toBN(18)
+        let amount = web3.utils.toBN(100)
+        let cryptoData = await getCryptoassetsData()
+        balance = web3.utils.fromWei(balance.toString(), 'Ether')
         //console.log(amount * 1000000000000000000)
         // contract.methods
         //   .transfer(
@@ -72,15 +96,26 @@ export default function Web3Provider({ children }) {
         //     }
         //   }
         // );
-        setWeb3Api({ provider, web3, contract, isLoaded: false });
+        setWeb3Api({
+          provider,
+          web3,
+          cryptoData,
+          polygonTokenContract,
+          polkadotTokenContract,
+          avalancheTokenContract,
+          axieInfinityTokenContract,
+          bitcoinTokenContract,
+          cardanoTokenContract,
+          isLoaded: false,
+        })
       } else {
-        setWeb3Api((api) => ({ ...api, isLoaded: false }));
-        console.error("Please install Metamask . ");
+        setWeb3Api((api) => ({ ...api, isLoaded: false }))
+        console.error('Please install Metamask . ')
       }
-    };
+    }
 
-    loadProvider();
-  }, []);
+    loadProvider()
+  }, [])
 
   const _web3Api = useMemo(() => {
     return {
@@ -90,30 +125,30 @@ export default function Web3Provider({ children }) {
       connect: web3Api.provider
         ? async () => {
             try {
-              await web3Api.provider.request({ method: "eth_requestAccounts" });
+              await web3Api.provider.request({ method: 'eth_requestAccounts' })
             } catch (error) {
-              console.log("Connection failed here is why  : ", error);
-              location.reload();
+              console.log('Connection failed here is why  : ', error)
+              location.reload()
             }
           }
         : () => {
             console.error(
-              "Cannot Connect to metamask , try to reload your browser please"
-            );
+              'Cannot Connect to metamask , try to reload your browser please',
+            )
           },
-    };
-  }, [web3Api]);
+    }
+  }, [web3Api])
 
   return (
     <Web3Context.Provider value={_web3Api}>{children}</Web3Context.Provider>
-  );
+  )
 }
 
 export function useWeb3Hook() {
-  return useContext(Web3Context);
+  return useContext(Web3Context)
 }
 
 export function useHooks(callback) {
-  const { getHooks } = useWeb3Hook();
-  return callback(getHooks());
+  const { getHooks } = useWeb3Hook()
+  return callback(getHooks())
 }
