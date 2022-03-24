@@ -97,15 +97,15 @@ export default function Web3Provider({ children }) {
           'WrappedBitcoinToken',
           web3,
         )
+        let cryptoData = await getCryptoassetsData()
 
         const accounts = await web3.eth.getAccounts()
-        let balance = await polygonTokenContract.methods
-          .balanceOf(accounts[0])
-          .call()
+        // let balance = await polygonTokenContract.methods
+        //   .balanceOf(accounts[0])
+        //   .call()
         let decimals = web3.utils.toBN(18)
         let amount = web3.utils.toBN(100)
-        let cryptoData = await getCryptoassetsData()
-        balance = web3.utils.fromWei(balance.toString(), 'Ether')
+        //   balance = web3.utils.fromWei(balance.toString(), 'Ether')
 
         const buyTokens = async (forHowManyEther, erc20Token, buyer) => {
           const polygonTokenContract = await loadContract('PolygonToken', web3)
@@ -217,14 +217,16 @@ export default function Web3Provider({ children }) {
   }, [])
 
   const _web3Api = useMemo(() => {
+    const { web3, provider, isLoaded } = web3Api
     return {
       ...web3Api,
-      isWeb3Loaded: web3Api.web3,
-      getHooks: () => setupHooks(web3Api.web3),
-      connect: web3Api.provider
+      isWeb3Loaded: web3,
+      requireInstallMetamask: !isLoaded && !web3,
+      getHooks: () => setupHooks(web3, provider),
+      connect: provider
         ? async () => {
             try {
-              await web3Api.provider.request({ method: 'eth_requestAccounts' })
+              await provider.request({ method: 'eth_requestAccounts' })
             } catch (error) {
               console.log('Connection failed here is why  : ', error)
               location.reload()

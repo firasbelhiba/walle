@@ -1,6 +1,6 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import {
   Navbar,
   Collapse,
@@ -13,22 +13,27 @@ import {
   DropdownItem,
   Dropdown,
   Button,
-} from "reactstrap";
-import LogoWhite from "../../assets/images/logos/amplelogowhite.svg";
-import user1 from "../../assets/images/users/user1.jpg";
-import { useWeb3Hook } from "../../../components/providers";
-import { useAccount } from "../../../components/web3/hooks/useAccount";
+} from 'reactstrap'
+import LogoWhite from '../../assets/images/logos/amplelogowhite.svg'
+import user1 from '../../assets/images/users/user1.jpg'
+import { useWeb3Hook } from '../../../components/providers'
+import { useAccount } from '../../../components/web3/hooks/useAccount'
 
 const Header = ({ showMobmenu }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [dropdownOpen, setDropdownOpen] = React.useState(false);
-  const { connect, isWeb3Loaded, isLoaded } = useWeb3Hook();
-  const { account } = useAccount();
+  const [isOpen, setIsOpen] = React.useState(false)
+  const [dropdownOpen, setDropdownOpen] = React.useState(false)
+  const {
+    connect,
+    isWeb3Loaded,
+    isLoaded,
+    requireInstallMetamask,
+  } = useWeb3Hook()
+  const { account } = useAccount()
 
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
+  const toggle = () => setDropdownOpen((prevState) => !prevState)
   const Handletoggle = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   return (
     <Navbar color="secondary" dark expand="md">
@@ -60,13 +65,14 @@ const Header = ({ showMobmenu }) => {
           <NavItem>
             {isLoaded ? (
               <a className="nav-link" onClick={connect}>
-                Trying to connect ...
+                Loading ...
               </a>
-            ) : isWeb3Loaded ? (
-              <a className="nav-link" onClick={connect}>
-                Connect Wallet
+            ) : account.data ? (
+              <a className="nav-link">
+                Hi there ! welcome to WallE ! Here is your wallet address :
+                {account.data}
               </a>
-            ) : (
+            ) : requireInstallMetamask ? (
               <Link
                 href="https://metamask.io"
                 target="_blank"
@@ -76,28 +82,16 @@ const Header = ({ showMobmenu }) => {
                   Install Metamask
                 </a>
               </Link>
+            ) : (
+              <a className="nav-link" onClick={connect}>
+                Connect Wallet
+              </a>
             )}
           </NavItem>
-          <NavItem>
-            <Link href="/about">
-              <a className="nav-link">About</a>
-            </Link>
-          </NavItem>
-          <UncontrolledDropdown inNavbar nav>
-            <DropdownToggle caret nav>
-              DD Menu
-            </DropdownToggle>
-            <DropdownMenu end>
-              <DropdownItem>Option 1</DropdownItem>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
         </Nav>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="secondary">
-            <div style={{ lineHeight: "0px" }}>
+            <div style={{ lineHeight: '0px' }}>
               <Image
                 src={user1}
                 alt="profile"
@@ -119,7 +113,7 @@ const Header = ({ showMobmenu }) => {
         </Dropdown>
       </Collapse>
     </Navbar>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

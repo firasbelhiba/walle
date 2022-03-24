@@ -1,15 +1,15 @@
-import { ThirdwebWeb3Provider } from "@3rdweb/hooks";
-import { Web3Provider } from "../components/providers";
-import FullLayout from "../src/layouts/FullLayout";
-import Head from "next/head";
-import "../styles/style.scss";
-import "../styles/globals.css";
-import Script from "next/script";
+import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
+import { Web3Provider } from '../components/providers'
+import FullLayout from '../src/layouts/FullLayout'
+import Head from 'next/head'
+import '../styles/style.scss'
+import '../styles/globals.css'
+import Script from 'next/script'
 
-const supportedChainIds = [4];
+const supportedChainIds = [4]
 const connectors = {
   injected: {},
-};
+}
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -28,10 +28,11 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </FullLayout>
         <Script src="/assets/bundles/libscripts.bundle.js" />
-
+        <Script src="https://unpkg.com/primereact/core/core.min.js" />
+        <Script src="https://unpkg.com/primereact/progressspinner/progressspinner.min.js" />
       </Web3Provider>
     </ThirdwebWeb3Provider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

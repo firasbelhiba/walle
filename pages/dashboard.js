@@ -306,7 +306,7 @@ const Dashboard = () => {
     }
 
     // Only if you are connected
-    account && web3 && getTotalBalance()
+    account.data && web3 && getTotalBalance()
   }, [account, thirdwebItems, sanityItems, data])
 
   return (
