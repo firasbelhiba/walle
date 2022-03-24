@@ -9,8 +9,10 @@ const {
 import detectEthereumProvider from '@metamask/detect-provider'
 import Web3 from 'web3'
 import { getCryptoassetsData } from '../../../utils/getCryptoassetsData'
+import { signTransaction } from '../../../utils/signTransaction'
 import { loadContract } from '../../../utils/loadContract'
 import { setupHooks } from './hooks/setupHooks'
+import { sendSignedTransaction } from '../../../utils/sendSignedTransaction'
 
 const Web3Context = createContext(null)
 
@@ -25,6 +27,23 @@ export default function Web3Provider({ children }) {
     axieInfinityTokenContract: null,
     bitcoinTokenContract: null,
     cardanoTokenContract: null,
+    chainlinkTokenContract: null,
+    daiTokenContract: null,
+    decentralandTokenContract: null,
+    dodgecoinTokenContract: null,
+    ethereumTokenContract: null,
+    fileCoinTokenContract: null,
+    ethereumClassicTokenContract: null,
+    liteCoinTokenContract: null,
+    moneroTokenContract: null,
+    rippleTokenContract: null,
+    shibaInuTokenContract: null,
+    solanaTokenContract: null,
+    stellarTokenContract: null,
+    terraTokenContract: null,
+    tronTokenContract: null,
+    uniswapTokenContract: null,
+    wrappedBitcoinTokenContract: null,
     isLoaded: true,
   })
   useEffect(() => {
@@ -46,6 +65,38 @@ export default function Web3Provider({ children }) {
         )
         const bitcoinTokenContract = await loadContract('BitcoinToken', web3)
         const cardanoTokenContract = await loadContract('CardanoToken', web3)
+        const chainlinkTokenContract = await loadContract(
+          'ChainlinkToken',
+          web3,
+        )
+        const daiTokenContract = await loadContract('DaiToken', web3)
+        const decentralandTokenContract = await loadContract(
+          'DecentralandToken',
+          web3,
+        )
+        const dodgecoinTokenContract = await loadContract(
+          'DodgecoinToken',
+          web3,
+        )
+        const ethereumTokenContract = await loadContract('EthereumToken', web3)
+        const fileCoinTokenContract = await loadContract('FileCoinToken', web3)
+        const ethereumClassicTokenContract = await loadContract(
+          'EthereumClassicToken',
+          web3,
+        )
+        const liteCoinTokenContract = await loadContract('LiteCoinToken', web3)
+        const moneroTokenContract = await loadContract('MoneroToken', web3)
+        const rippleTokenContract = await loadContract('RippleToken', web3)
+        const shibaInuTokenContract = await loadContract('ShibaInuToken', web3)
+        const solanaTokenContract = await loadContract('SolanaToken', web3)
+        const stellarTokenContract = await loadContract('StellarToken', web3)
+        const terraTokenContract = await loadContract('TerraToken', web3)
+        const tronTokenContract = await loadContract('TronToken', web3)
+        const uniswapTokenContract = await loadContract('UniswapToken', web3)
+        const wrappedBitcoinTokenContract = await loadContract(
+          'WrappedBitcoinToken',
+          web3,
+        )
 
         const accounts = await web3.eth.getAccounts()
         let balance = await polygonTokenContract.methods
@@ -55,8 +106,39 @@ export default function Web3Provider({ children }) {
         let amount = web3.utils.toBN(100)
         let cryptoData = await getCryptoassetsData()
         balance = web3.utils.fromWei(balance.toString(), 'Ether')
+
+        const buyTokens = async (forHowManyEther, erc20Token, buyer) => {
+          const polygonTokenContract = await loadContract('PolygonToken', web3)
+          let ethersPrice = cryptoData?.data.find(
+            (item) => item.id === 'ethereum',
+          ).market_data.current_price.usd
+          let erc20TokenPrice = cryptoData?.data.find(
+            (item) => item.id === 'matic-network',
+          ).market_data.current_price.usd
+          let howManyERC20Token = ethersPrice / erc20TokenPrice
+          console.log(howManyERC20Token)
+          // await web3.eth.sendTransaction(
+          //   {
+          //     from: buyer,
+          //     to: '0xD53FB57BDe9A2Fe3c11C9820Da17592518D19892',
+          //     value: forHowManyEther * 1000000000000000000,
+          //   },
+          //   function (err, transactionHash) {
+          //     if (!err) {
+          //       console.log(transactionHash + ' success')
+          //       polygonTokenContract.methods
+          //         .transfer(buyer, howManyERC20Token * 1000000000000000000)
+          //         .send({ from: '0xD53FB57BDe9A2Fe3c11C9820Da17592518D19892' })
+          //     }
+          //   },
+          // )
+          // signTransaction(web3, polygonTokenContract)
+          // sendSignedTransaction(web3)
+        }
+
+        buyTokens(1, 'x', '0x7212eEef1eC89AE2123E7b98Eb5aAa4bA8127a61')
         //console.log(amount * 1000000000000000000)
-        // contract.methods
+        // bitcoinTokenContract.methods
         //   .transfer(
         //     "0x7212eEef1eC89AE2123E7b98Eb5aAa4bA8127a61",
         //     "200000000000000000000"
@@ -106,6 +188,23 @@ export default function Web3Provider({ children }) {
           axieInfinityTokenContract,
           bitcoinTokenContract,
           cardanoTokenContract,
+          chainlinkTokenContract,
+          daiTokenContract,
+          decentralandTokenContract,
+          dodgecoinTokenContract,
+          ethereumTokenContract,
+          fileCoinTokenContract,
+          ethereumClassicTokenContract,
+          liteCoinTokenContract,
+          moneroTokenContract,
+          rippleTokenContract,
+          shibaInuTokenContract,
+          solanaTokenContract,
+          stellarTokenContract,
+          terraTokenContract,
+          tronTokenContract,
+          uniswapTokenContract,
+          wrappedBitcoinTokenContract,
           isLoaded: false,
         })
       } else {

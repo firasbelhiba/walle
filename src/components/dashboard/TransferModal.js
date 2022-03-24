@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Transfer from "./Transfer";
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { useWeb3Hook } from '../../../components/providers'
+import AssetSelector from './AssetSelector'
+import Transfer from './Transfer'
 
 const TransferModal = ({
   sanityItems,
@@ -8,19 +10,32 @@ const TransferModal = ({
   walletAddress,
   setTransferButton,
 }) => {
-  const [action, setAction] = useState("send");
-  const [selectedAsset, setSelectedAsset] = useState(sanityItems[0]);
+  const {
+    web3,
+    cryptoData,
+    polygonTokenContract,
+    polkadotTokenContract,
+    avalancheTokenContract,
+    axieInfinityTokenContract,
+    bitcoinTokenContract,
+    cardanoTokenContract,
+  } = useWeb3Hook()
+  const [action, setAction] = useState('send')
+  const [selectedAsset, setSelectedAsset] = useState("Ethereum")
+  const [imageUrl, setImageUrl] = useState(
+    cryptoData.data.find((item) => item.id === 'ethereum').image.small,
+  )
 
   const selectedStyle = {
-    color: "#3773f5",
-  };
+    color: '#3773f5',
+  }
 
   const unselectedStyle = {
-    border: "3px solid #282b2f",
-  };
+    border: '3px solid #282b2f',
+  }
 
   const selectedModal = (option) => {
-    if (option === "send")
+    if (option === 'send')
       return (
         <Transfer
           selectedAsset={selectedAsset}
@@ -28,34 +43,47 @@ const TransferModal = ({
           thirdwebItems={thirdwebItems}
           walletAddress={walletAddress}
           setTransferButton={setTransferButton}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
         />
-      );
+      )
 
-    if (option === "receive") return <h2>receive</h2>;
-  };
+    if (option === 'receive') return <h2>receive</h2>
+    if (option === 'select')
+      return (
+        <AssetSelector
+          setAction={setAction}
+          setSelectedAsset={setSelectedAsset}
+          walletAddress={walletAddress}
+          selectedAsset={selectedAsset}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+        />
+      )
+  }
 
   return (
     <Wrapper>
       <Selector>
         <Option
-          style={action === "send" ? selectedStyle : unselectedStyle}
-          onClick={() => setAction("send")}
+          style={action === 'send' ? selectedStyle : unselectedStyle}
+          onClick={() => setAction('send')}
         >
           <p>Send</p>
         </Option>
         <Option
-          style={action === "receive" ? selectedStyle : unselectedStyle}
-          onClick={() => setAction("receive")}
+          style={action === 'receive' ? selectedStyle : unselectedStyle}
+          onClick={() => setAction('receive')}
         >
           <p>Receive</p>
         </Option>
       </Selector>
       <ModalMain>{selectedModal(action)}</ModalMain>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default TransferModal;
+export default TransferModal
 
 const Wrapper = styled.div`
   height: 35rem;
@@ -65,14 +93,14 @@ const Wrapper = styled.div`
   border: 1px solid #282b2f;
   display: flex;
   flex-direction: column;
-`;
+`
 
 const Selector = styled.div`
   display: false;
   justify-content: space-evenly;
   align-items: center;
   height: 5rem;
-`;
+`
 
 const Option = styled.div`
   height: 100%;
@@ -86,9 +114,9 @@ const Option = styled.div`
     cursor: pointer;
     background-color: #111214;
   }
-`;
+`
 
 const ModalMain = styled.div`
   padding: 1rem;
   flex: 1;
-`;
+`

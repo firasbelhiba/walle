@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { FaWallet } from "react-icons/fa";
-import ImageUrlBuilder from "@sanity/image-url";
-import { client } from "../../../lib/sanity";
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { FaWallet } from 'react-icons/fa'
+import ImageUrlBuilder from '@sanity/image-url'
+import { client } from '../../../lib/sanity'
+import { useWeb3Hook } from '../../../components/providers'
 
 const Transfer = ({
   selectedAsset,
@@ -10,51 +11,46 @@ const Transfer = ({
   thirdwebItems,
   walletAddress,
   setTransferButton,
+  setImageUrl,
+  imageUrl,
 }) => {
-  const [amount, setAmount] = useState();
-  const [recipient, setRecipient] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [activeThirdwebItem, setActiveThirdwebItem] = useState();
-  const [balance, setBalance] = useState("Looking for the balance ... ");
-
-  useEffect(() => {
-    const activeToken = thirdwebItems.find(
-      (item) => item.address === selectedAsset.contractAddress
-    );
-    setActiveThirdwebItem(activeToken);
-  }, [thirdwebItems, selectedAsset]);
-
-  useEffect(() => {
-    const url = ImageUrlBuilder(client).image(selectedAsset.logo).url();
-    setImageUrl(url);
-    console.log(url);
-  }, [selectedAsset, thirdwebItems, walletAddress]);
+  const [amount, setAmount] = useState('')
+  const [recipient, setRecipient] = useState('')
+  const [activeThirdwebItem, setActiveThirdwebItem] = useState()
+  const [balance, setBalance] = useState('Looking for the balance ... ')
+  const {
+    web3,
+    cryptoData,
+    polygonTokenContract,
+    polkadotTokenContract,
+    avalancheTokenContract,
+    axieInfinityTokenContract,
+    bitcoinTokenContract,
+    cardanoTokenContract,
+  } = useWeb3Hook()
 
   useEffect(() => {
     const getBalance = async () => {
-      const balance = await activeThirdwebItem.balanceOf(walletAddress);
-      setBalance(balance.displayValue);
-      console.log(balance);
-    };
+      const balance = await activeThirdwebItem.balanceOf(walletAddress)
+      setBalance(balance.displayValue)
+      console.log(balance)
+    }
 
-    activeThirdwebItem && getBalance();
-  }, [activeThirdwebItem]);
-  //0xb4eaB3F8Edf27Cb3548AA036F863464A30dC390d
+    activeThirdwebItem && getBalance()
+  }, [walletAddress, activeThirdwebItem])
+
   const sendAssets = async (amount, recipient) => {
-    // console.log("sending crypto ...", amount);
-    // console.log(activeThirdwebItem)
-    // if (activeThirdwebItem && amount && recipient) {
-    //   const trx = await activeThirdwebItem.transfer(
-    //     recipient,
-    //     amount.toString().concat("000000000000000000"),
-    //     {}
-    //   );
-    //   console.log(trx);
-    //   setAction("transfered");
-    // } else {
-    //   console.error("missing data");
-    // }
-  };
+    if (selectedAsset === 'Bitcoin') {
+      bitcoinTokenContract.methods
+        .transfer(recipient, (amount * 1000000000000000000).toString())
+        .send({ from: '0xD53FB57BDe9A2Fe3c11C9820Da17592518D19892' })
+    } else if (selectedAsset === 'Polkadot') {
+      polkadotTokenContract.methods
+        .transfer(recipient, (amount * 1000000000000000000).toString())
+        .send({ from: '0xD53FB57BDe9A2Fe3c11C9820Da17592518D19892' })
+    }
+  }
+
   return (
     <Wrapper>
       <Amount>
@@ -84,11 +80,11 @@ const Transfer = ({
         <Divider />
         <Row>
           <FieldName>Pay with</FieldName>
-          <CoinSelectList>
+          <CoinSelectList onClick={() => setAction('select')}>
             <Icon>
               <img src={imageUrl} alt />
             </Icon>
-            <CoinName>{selectedAsset.name}</CoinName>
+            <CoinName>{selectedAsset}</CoinName>
           </CoinSelectList>
         </Row>
       </TransferForm>
@@ -105,23 +101,23 @@ const Transfer = ({
         </Balance>
       </Row>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Transfer;
+export default Transfer
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
   flex: 1;
-`;
+`
 
 const Amount = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
+`
 
 const FlexInputContainer = styled.div`
   flex: 1;
@@ -133,7 +129,7 @@ const FlexInputContainer = styled.div`
     margin-bottom: 0.5rem;
     color: #3773f5;
   }
-`;
+`
 
 const FlexInput = styled.input`
   border: none;
@@ -152,17 +148,17 @@ const FlexInput = styled.input`
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-`;
+`
 
 const Warning = styled.div`
   padding: 1rem 0 2rem 0;
   text-align: center;
   color: #8a919e;
-`;
+`
 
 const Divider = styled.div`
   border-bottom: 1px solid #282b2f;
-`;
+`
 
 const Row = styled.div`
   display: flex;
@@ -171,12 +167,12 @@ const Row = styled.div`
   color: #8a919e;
   padding: 1rem 0;
   font-size: 1.2rem;
-`;
+`
 
 const FieldName = styled.div`
   flex: 0.5;
   padding-left: 2rem;
-`;
+`
 
 const Icon = styled.div`
   margin-right: 1rem;
@@ -192,7 +188,7 @@ const Icon = styled.div`
     width: 120%;
     object-fit: cover;
   }
-`;
+`
 
 const Recipient = styled.input`
   flex: 1;
@@ -203,7 +199,7 @@ const Recipient = styled.input`
   font-size: 1.2rem;
   text-wrap: wrap;
   margin-right: 0.5rem;
-`;
+`
 
 const CoinSelectList = styled.div`
   display: flex;
@@ -213,7 +209,7 @@ const CoinSelectList = styled.div`
   &:hover {
     cursor: pointer;
   }
-`;
+`
 
 const CoinName = styled.div`
   flex: 1;
@@ -224,7 +220,7 @@ const CoinName = styled.div`
   font-size: 1.2rem;
   text-wrap: wrap;
   margin-right: 0.5rem;
-`;
+`
 
 const Continue = styled.button`
   color: white;
@@ -239,7 +235,7 @@ const Continue = styled.button`
     cursor: pointer;
     background-color: #4a80f6;
   }
-`;
+`
 
 const Cancel = styled.button`
   color: white;
@@ -254,13 +250,13 @@ const Cancel = styled.button`
     cursor: pointer;
     background-color: #8e0000;
   }
-`;
+`
 
 const TransferForm = styled.div`
   border: 1px solid #282b2f;
   border-radius: 0.4rem;
-`;
+`
 
-const BalanceTitle = styled.div``;
+const BalanceTitle = styled.div``
 
-const Balance = styled.div``;
+const Balance = styled.div``

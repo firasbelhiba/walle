@@ -13,8 +13,13 @@ Modal.setAppElement("#__next");
 const navigation = [
   {
     title: "Dashboard",
-    href: "/",
+    href: "/dashboard",
     icon: "bi bi-speedometer2",
+  },
+  {
+    title: "Assets",
+    href: "/assets",
+    icon: "bi bi-bell",
   },
   {
     title: "Alert",

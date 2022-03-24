@@ -27,6 +27,23 @@ const Dashboard = () => {
     axieInfinityTokenContract,
     bitcoinTokenContract,
     cardanoTokenContract,
+    chainlinkTokenContract,
+    daiTokenContract,
+    decentralandTokenContract,
+    dodgecoinTokenContract,
+    ethereumTokenContract,
+    fileCoinTokenContract,
+    ethereumClassicTokenContract,
+    liteCoinTokenContract,
+    moneroTokenContract,
+    rippleTokenContract,
+    shibaInuTokenContract,
+    solanaTokenContract,
+    stellarTokenContract,
+    terraTokenContract,
+    tronTokenContract,
+    uniswapTokenContract,
+    wrappedBitcoinTokenContract,
   } = useWeb3Hook()
   const [walletBalance, setWalletBalance] = useState(0)
 
@@ -37,8 +54,26 @@ const Dashboard = () => {
   const [axieInfinityBalance, setAxieInfinityBalance] = useState(0)
   const [bitcoinBalance, setBitcoinBalance] = useState(0)
   const [cardanoBalance, setCardanoBalance] = useState(0)
+  const [chainlinkBalance, setChainlinkBalance] = useState(0)
+  const [daiBalance, setDaiBalance] = useState(0)
+  const [decentralandBalance, setDecentralandBalance] = useState(0)
+  const [dodgecoinBalance, setDodgecoinBalance] = useState(0)
+  const [ethereumBalance, setEthereumBalance] = useState(0)
+  const [fileCoinBalance, setFileCoinBalance] = useState(0)
+  const [ethereumClassicBalance, setEthereumClassicBalance] = useState(0)
+  const [liteCoinBalance, setLiteCoinBalance] = useState(0)
+  const [moneroBalance, setMoneroBalance] = useState(0)
+  const [rippleBalance, setRippleBalance] = useState(0)
+  const [shibaInuBalance, setShibaInuBalance] = useState(0)
+  const [solanaBalance, setSolanaBalance] = useState(0)
+  const [stellarBalance, setStellarBalance] = useState(0)
+  const [terraBalance, setTerraBalance] = useState(0)
+  const [tronBalance, setTronBalance] = useState(0)
+  const [uniswapBalance, setUniswapBalance] = useState(0)
+  const [wrappedBitcoinBalance, setWrappedBitcoinBalance] = useState(0)
 
   const { sanityItems, thirdwebItems } = useBalance()
+
   // crypto data
   const [data, setData] = useState()
 
@@ -99,7 +134,7 @@ const Dashboard = () => {
         'Ether',
       )
 
-      // fetch Avalanche balance
+      // fetch Cardano balance
       let balanceofCardano = await cardanoTokenContract.methods
         .balanceOf(accounts[0])
         .call()
@@ -108,16 +143,169 @@ const Dashboard = () => {
         'Ether',
       )
 
+      // fetch Chainlink balance
+      let balanceofChainlink = await chainlinkTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofChainlink = web3.utils.fromWei(
+        balanceofChainlink.toString(),
+        'Ether',
+      )
+
+      // fetch Dai balance
+      let balanceofDai = await daiTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofDai = web3.utils.fromWei(balanceofDai.toString(), 'Ether')
+
+      // fetch Decentraland balance
+      let balanceofDecentraland = await decentralandTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofDecentraland = web3.utils.fromWei(
+        balanceofDecentraland.toString(),
+        'Ether',
+      )
+
+      // fetch Dodgecoin balance
+      let balanceofDodgecoin = await dodgecoinTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofDodgecoin = web3.utils.fromWei(
+        balanceofDodgecoin.toString(),
+        'Ether',
+      )
+
+      // fetch Ethereum balance
+      let balanceofEthereum = await ethereumTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofEthereum = web3.utils.fromWei(
+        balanceofEthereum.toString(),
+        'Ether',
+      )
+
+      // fetch File coin balance
+      let balanceofFileCoin = await fileCoinTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofFileCoin = web3.utils.fromWei(
+        balanceofFileCoin.toString(),
+        'Ether',
+      )
+
+      // fetch Ethereum classic balance
+      let balanceofEthereumClassic = await ethereumClassicTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofEthereumClassic = web3.utils.fromWei(
+        balanceofEthereumClassic.toString(),
+        'Ether',
+      )
+
+      // fetch Lite coin balance
+      let balanceofLiteCoin = await liteCoinTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofLiteCoin = web3.utils.fromWei(
+        balanceofLiteCoin.toString(),
+        'Ether',
+      )
+
+      // fetch Monero balance
+      let balanceofMonero = await moneroTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofMonero = web3.utils.fromWei(balanceofMonero.toString(), 'Ether')
+
+      // fetch Ripple balance
+      let balanceofRipple = await rippleTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofRipple = web3.utils.fromWei(balanceofRipple.toString(), 'Ether')
+
+      // fetch Shiba Inu balance
+      let balanceofShibaInu = await shibaInuTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofShibaInu = web3.utils.fromWei(
+        balanceofShibaInu.toString(),
+        'Ether',
+      )
+
+      // fetch Solana balance
+      let balanceofSolana = await solanaTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofSolana = web3.utils.fromWei(balanceofSolana.toString(), 'Ether')
+
+      // fetch Stellar balance
+      let balanceofStellar = await stellarTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofStellar = web3.utils.fromWei(
+        balanceofStellar.toString(),
+        'Ether',
+      )
+
+      // fetch Terra Luna balance
+      let balanceofTerra = await terraTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofTerra = web3.utils.fromWei(balanceofTerra.toString(), 'Ether')
+
+      // fetch Tron balance
+      let balanceofTron = await tronTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofTron = web3.utils.fromWei(balanceofTron.toString(), 'Ether')
+
+      // fetch Uniswap balance
+      let balanceofUniswap = await uniswapTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofUniswap = web3.utils.fromWei(
+        balanceofUniswap.toString(),
+        'Ether',
+      )
+
+      // fetch Wrapped Bitcoin balance
+      let balanceofWrappedBitcoin = await wrappedBitcoinTokenContract.methods
+        .balanceOf(accounts[0])
+        .call()
+      balanceofWrappedBitcoin = web3.utils.fromWei(
+        balanceofWrappedBitcoin.toString(),
+        'Ether',
+      )
+
+      // Setting assets balances
       setPolygonBalance(balanceofPolygon)
       setPolkadotBalance(balanceofPolkadot)
       setAvalancheBalance(balanceofAvalanche)
       setAxieInfinityBalance(balanceofAxieInfinity)
       setBitcoinBalance(balanceofBitcoin)
       setCardanoBalance(balanceofCardano)
-
+      setChainlinkBalance(balanceofChainlink)
+      setDaiBalance(balanceofDai)
+      setDecentralandBalance(balanceofDecentraland)
+      setDodgecoinBalance(balanceofDodgecoin)
+      setEthereumBalance(balanceofEthereum)
+      setFileCoinBalance(balanceofFileCoin)
+      setEthereumClassicBalance(balanceofEthereumClassic)
+      setLiteCoinBalance(balanceofLiteCoin)
+      setMoneroBalance(balanceofMonero)
+      setRippleBalance(balanceofRipple)
+      setShibaInuBalance(balanceofShibaInu)
+      setSolanaBalance(balanceofSolana)
+      setStellarBalance(balanceofStellar)
+      setTerraBalance(balanceofTerra)
+      setTronBalance(balanceofTron)
+      setUniswapBalance(balanceofUniswap)
+      setWrappedBitcoinBalance(balanceofWrappedBitcoin)
       await console.log('ddd', data)
     }
 
+    // Only if you are connected
     account && web3 && getTotalBalance()
   }, [account, thirdwebItems, sanityItems, data])
 
@@ -125,314 +313,31 @@ const Dashboard = () => {
     <div>
       <SalesChart
         walletBalance={walletBalance.toLocaleString()}
-        polygonBalance={polygonBalance.toLocaleString()}
-        polkadotBalance={polkadotBalance.toLocaleString()}
-        avalancheBalance={avalancheBalance.toLocaleString()}
-        axieInfinityBalance={axieInfinityBalance.toLocaleString()}
-        bitcoinBalance={bitcoinBalance.toLocaleString()}
-        cardanoBalance={cardanoBalance.toLocaleString()}
-
+        polygonBalance={polygonBalance}
+        polkadotBalance={polkadotBalance}
+        avalancheBalance={avalancheBalance}
+        axieInfinityBalance={axieInfinityBalance}
+        bitcoinBalance={bitcoinBalance}
+        cardanoBalance={cardanoBalance}
+        chainlinkBalance={chainlinkBalance}
+        daiBalance={daiBalance}
+        decentralandBalance={decentralandBalance}
+        dodgecoinBalance={dodgecoinBalance}
+        ethereumBalance={ethereumBalance}
+        fileCoinBalance={fileCoinBalance}
+        ethereumClassicBalance={ethereumClassicBalance}
+        liteCoinBalance={liteCoinBalance}
+        moneroBalance={moneroBalance}
+        rippleBalance={rippleBalance}
+        shibaInuBalance={shibaInuBalance}
+        solanaBalance={solanaBalance}
+        stellarBalance={stellarBalance}
+        terraBalance={terraBalance}
+        tronBalance={tronBalance}
+        uniswapBalance={uniswapBalance}
+        wrappedBitcoinBalance={wrappedBitcoinBalance}
         cryptoAssetsData={data}
       />
-      <div className="row g-3 mb-3 row-deck">
-        <div className="col-xl-4 col-xxl-5">
-          <div className="card">
-            <div className="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
-              <h6 className="mb-0 fw-bold">Top Coin Volume</h6>
-            </div>
-            <div className="card-body">
-              <span className="h3 d-block mb-2">$97,431.14 USD</span>
-              {/* Progress */}
-              <div
-                className="progress rounded-pill mb-1"
-                style={{ height: '5px' }}
-              >
-                <div
-                  className="progress-bar chart-color1"
-                  role="progressbar"
-                  style={{ width: '32%' }}
-                  aria-valuenow={32}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                />
-                <div
-                  className="progress-bar chart-color2"
-                  role="progressbar"
-                  style={{ width: '23%' }}
-                  aria-valuenow={23}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                />
-                <div
-                  className="progress-bar chart-color3"
-                  role="progressbar"
-                  style={{ width: '13%' }}
-                  aria-valuenow={13}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                />
-                <div
-                  className="progress-bar chart-color4"
-                  role="progressbar"
-                  style={{ width: '7%' }}
-                  aria-valuenow={7}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                />
-              </div>
-              <div className="d-flex justify-content-between mb-4">
-                <span>0%</span>
-                <span>100%</span>
-              </div>
-              {/* End Progress */}
-              <div className="table-responsive">
-                <table className="table  table-nowrap mb-0">
-                  <tbody>
-                    <tr>
-                      <td>
-                        <i className="fa fa-square chart-text-color1" /> BTC
-                      </td>
-                      <td>5.71095643</td>
-                      <td>
-                        <span className="badge bg-success">+12.1%</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <i className="fa fa-square chart-text-color2" /> LTC
-                      </td>
-                      <td>2.409425</td>
-                      <td>
-                        <span className="badge bg-warning">+6.9%</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <i className="fa fa-square chart-text-color3" /> XRP
-                      </td>
-                      <td>0.0906654</td>
-                      <td>
-                        <span className="badge bg-danger">-1.5%</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <i className="fa fa-square chart-text-color4" /> DASH
-                      </td>
-                      <td>0.007653</td>
-                      <td>
-                        <span className="badge bg-success">1.9%</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xl-8 col-xxl-7">
-          <div className="card">
-            <div className="card-header py-3 d-flex justify-content-between bg-transparent border-bottom align-items-center flex-wrap">
-              <h6 className="mb-0 fw-bold">Login Activity</h6>
-              <ul
-                className="nav nav-tabs tab-body-header rounded d-inline-flex mt-2 mt-md-0"
-                role="tablist"
-              >
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    data-bs-toggle="tab"
-                    href="#Activity"
-                    role="tab"
-                  >
-                    Activity
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link active"
-                    data-bs-toggle="tab"
-                    href="#Devices"
-                    role="tab"
-                  >
-                    Devices
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="card-body">
-              <div className="tab-content">
-                <div className="tab-pane fade" id="Activity">
-                  <ul className="list-unstyled list mb-0">
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color1">
-                        <i className="fa fa-globe" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">web</div>
-                        <small className="text-muted">Mumbai India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">122.170.109.22</span>
-                        <span className="text-muted d-block small">
-                          2021-09-30 11:00:52
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color2">
-                        <i className="fa fa-globe" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">web</div>
-                        <small className="text-muted">Mumbai India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">122.170.109.22</span>
-                        <span className="text-muted d-block small">
-                          2021-09-30 11:00:20
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color3">
-                        <i className="fa fa-globe" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">web</div>
-                        <small className="text-muted">Mumbai India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">122.170.109.21</span>
-                        <span className="text-muted d-block small">
-                          2021-09-29 10:56:22
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color4">
-                        <i className="fa fa-globe" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">web</div>
-                        <small className="text-muted">Pune India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">198.182.109.22</span>
-                        <span className="text-muted d-block small">
-                          2021-09-30 12:50:52
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color2">
-                        <i className="fa fa-globe" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">web</div>
-                        <small className="text-muted">Banglor India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">126.150.109.22</span>
-                        <span className="text-muted d-block small">
-                          2021-09-30 10:00:20
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div className="tab-pane fade show active" id="Devices">
-                  <ul className="list-unstyled list mb-0">
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color1">
-                        <i className="fa fa-chrome" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">
-                          Chrome V94.0.4606.61 (Windows)
-                        </div>
-                        <small className="text-muted">Mumbai India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">122.170.109.22</span>
-                        <span className="text-muted d-block small">
-                          2021-09-30 11:00:52
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color2">
-                        <i className="fa fa-mobile" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">iPhone</div>
-                        <small className="text-muted">Mumbai India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">27.57.172.87</span>
-                        <span className="text-muted d-block small">
-                          2021-09-23 09:03:35
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color3">
-                        <i className="fa fa-firefox" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">
-                          Mozila V92.0.4515.159 (Windows)
-                        </div>
-                        <small className="text-muted">Mumbai India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">117.99.104.150</span>
-                        <span className="text-muted d-block small">
-                          2021-08-19 08:01:44
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color4">
-                        <i className="fa fa-mobile" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">Android</div>
-                        <small className="text-muted">Pune India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">118.99.104.150</span>
-                        <span className="text-muted d-block small">
-                          2021-09-30 12:50:52
-                        </span>
-                      </div>
-                    </li>
-                    <li className="d-flex align-items-center py-2">
-                      <div className="avatar rounded no-thumbnail chart-text-color3">
-                        <i className="fa fa-safari" aria-hidden="true" />
-                      </div>
-                      <div className="flex-fill ms-3">
-                        <div className="h6 mb-0">
-                          Safari V84.0.4515.159 (Mac)
-                        </div>
-                        <small className="text-muted">Banglor India</small>
-                      </div>
-                      <div className="flex-end">
-                        <span className="d-block text-end">
-                          177.192.104.150
-                        </span>
-                        <span className="text-muted d-block small">
-                          2021-08-19 07:01:44
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
