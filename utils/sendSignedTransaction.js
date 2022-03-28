@@ -1,5 +1,5 @@
 // Ethereum javascript libraries needed
-var Tx = require('ethereumjs-tx').Transaction
+var Tx = require('ethereumjs-tx')
 // Rather than using a local copy of geth, interact with the ethereum blockchain via infura.io
 // The key for infura.io is in .env
 import PolygonToken from '../public/contracts/PolygonToken.json'
@@ -9,13 +9,19 @@ function financialMfil(numMfil) {
   return Number.parseFloat(numMfil / 1e3).toFixed(3)
 }
 // Create an async function so I can use the "await" keyword to wait for things to finish
-export const sendSignedTransaction = async (web3) => {
+export const sendSignedTransaction = async (
+  web3,
+  amount,
+  buyer,
+  contract,
+  contractAddress,
+) => {
   // This code was written and tested using web3 version 1.0.0-beta.29
   console.log(`web3 version: ${web3.version}`)
   // Who holds the token now?
-  var myAddress = '0xD53FB57BDe9A2Fe3c11C9820Da17592518D19892'
+  var myAddress = '0xDcBCdbB8f6fd33A105F5c01BE0B05BA09753e55c'
   // Who are we trying to send this token to?
-  var destAddress = '0x7212eEef1eC89AE2123E7b98Eb5aAa4bA8127a61'
+  var destAddress = buyer
   // MineFIL Token (MFIL) is divisible to 3 decimal places, 1 = 0.001 of MFIL
   var transferAmount = 30
   // Determine the nonce
@@ -24,10 +30,14 @@ export const sendSignedTransaction = async (web3) => {
   // MineFILToekn contract ABI Array
 
   // The address of the contract which created MFIL
-  var contractAddress = '0xc3640bEF805117173d6d611a4775F95b2fA63060'
-  var contract = new web3.eth.Contract(PolygonToken.abi, contractAddress, {
-    from: myAddress,
-  })
+  //var contractAddress = '0xc3640bEF805117173d6d611a4775F95b2fA63060'
+  var contractAddress = contractAddress
+
+  // var contract = new web3.eth.Contract(PolygonToken.abi, contractAddress, {
+  //   from: myAddress,
+  // })
+
+  var contract = contract
   // How many tokens do I have before sending?
   var balance = await contract.methods.balanceOf(myAddress).call()
   console.log(
@@ -48,7 +58,7 @@ export const sendSignedTransaction = async (web3) => {
     gasLimit: web3.utils.toHex(gasLimit),
     to: contractAddress,
     value: '0x0',
-    data: contract.methods.transfer(destAddress, '200000000000000000000').encodeABI(),
+    data: contract.methods.transfer(destAddress, amount).encodeABI(),
     chainId: chainId,
   }
   console.log(
@@ -60,7 +70,7 @@ export const sendSignedTransaction = async (web3) => {
   )
   // The private key for myAddress in .env
   var privKey = new Buffer(
-    '78e20ad1aaf2807594d689596be844feab2e954e7d3bbe4da2894031101624a7',
+    'bde8f60dff4ce0c568614d2a9b4c084a8d082b4821409b451bfa8173ed86be42',
     'hex',
   )
   var tx = new Tx(rawTransaction)

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useWeb3Hook } from '../../../components/providers'
 import AssetSelector from './AssetSelector'
+import Recieve from './Receive'
 import Transfer from './Transfer'
 
 const TransferModal = ({
@@ -21,9 +22,13 @@ const TransferModal = ({
     cardanoTokenContract,
   } = useWeb3Hook()
   const [action, setAction] = useState('send')
-  const [selectedAsset, setSelectedAsset] = useState("Ethereum")
+  const [selectedAsset, setSelectedAsset] = useState({
+    name: 'Ethereum',
+    symbol: 'ETH',
+    id: 'ethereum',
+  })
   const [imageUrl, setImageUrl] = useState(
-    cryptoData.data.find((item) => item.id === 'ethereum').image.small,
+    cryptoData?.data.find((item) => item.id === 'ethereum').image.small,
   )
 
   const selectedStyle = {
@@ -48,7 +53,18 @@ const TransferModal = ({
         />
       )
 
-    if (option === 'receive') return <h2>receive</h2>
+    if (option === 'receive')
+      return (
+        <Recieve
+          selectedAsset={selectedAsset}
+          setAction={setAction}
+          thirdwebItems={thirdwebItems}
+          walletAddress={walletAddress}
+          setTransferButton={setTransferButton}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+        />
+      )
     if (option === 'select')
       return (
         <AssetSelector
@@ -60,6 +76,7 @@ const TransferModal = ({
           setImageUrl={setImageUrl}
         />
       )
+      
   }
 
   return (

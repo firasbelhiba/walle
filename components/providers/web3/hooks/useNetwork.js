@@ -11,7 +11,7 @@ const NETWORK = {
   1337: 'Ganache',
 }
 
-const targetNetwork = NETWORK['1337']
+const targetNetwork = NETWORK['3']
 
 export const handler = (web3, provider) => () => {
   const { data, error, mutate, ...swrResponse } = useSWR(

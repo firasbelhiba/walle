@@ -18,7 +18,7 @@ const AssetItem = ({
           setImageUrl(
             cryptoData.data.find((item) => item.id === 'polkadot').image.small,
           )
-          setSelectedAsset('Polkadot')
+          setSelectedAsset({ name: 'Polkadot', symbol: 'DOT', id: 'polkadot' })
           setAction('send')
         }}
       >
@@ -38,7 +38,7 @@ const AssetItem = ({
           setImageUrl(
             cryptoData.data.find((item) => item.id === 'bitcoin').image.small,
           )
-          setSelectedAsset('Bitcoin')
+          setSelectedAsset({ name: 'Bitcoin', symbol: 'BTC', id: 'bitcoin' })
           setAction('send')
         }}
       >
@@ -59,7 +59,11 @@ const AssetItem = ({
             cryptoData.data.find((item) => item.id === 'matic-network').image
               .small,
           )
-          setSelectedAsset('Polygon')
+          setSelectedAsset({
+            name: 'Polygon',
+            symbol: 'MATIC',
+            id: 'matic-network',
+          })
           setAction('send')
         }}
       >
@@ -74,13 +78,33 @@ const AssetItem = ({
         </Main>
       </Wrapper>
 
+      {/* Stellar */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'stellar').image.small,
+          )
+          setSelectedAsset({ name: 'Stellar', symbol: 'XLM', id: 'stellar' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'stellar').image.small
+            }
+          />
+          <Title>Stellar</Title>
+        </Main>
+      </Wrapper>
+
       {/* cardano */}
       <Wrapper
         onClick={() => {
           setImageUrl(
             cryptoData.data.find((item) => item.id === 'cardano').image.small,
           )
-          setSelectedAsset('Cardano')
+          setSelectedAsset({ name: 'Cardano', symbol: 'ADA', id: 'cardano' })
           setAction('send')
         }}
       >
@@ -101,7 +125,11 @@ const AssetItem = ({
             cryptoData.data.find((item) => item.id === 'axie-infinity').image
               .small,
           )
-          setSelectedAsset('Axie Infinity')
+          setSelectedAsset({
+            name: 'Axie Infinity',
+            symbol: 'AXS',
+            id: 'axie-infinity',
+          })
           setAction('send')
         }}
       >
@@ -123,7 +151,11 @@ const AssetItem = ({
             cryptoData.data.find((item) => item.id === 'avalanche-2').image
               .small,
           )
-          setSelectedAsset('Avalanche')
+          setSelectedAsset({
+            name: 'Avalanche',
+            symbol: 'AVAX',
+            id: 'avalanche-2',
+          })
           setAction('send')
         }}
       >
@@ -135,6 +167,354 @@ const AssetItem = ({
             }
           />
           <Title>Avalanche</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Ethereum */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'ethereum').image.small,
+          )
+          setSelectedAsset({ name: 'Ethereum', symbol: 'ETH', id: 'ethereum' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'ethereum').image.small
+            }
+          />
+          <Title>Ethereum</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Chainlink */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'chainlink').image.small,
+          )
+          setSelectedAsset({
+            name: 'Chainlink',
+            symbol: 'LINK',
+            id: 'chainlink',
+          })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'chainlink').image
+                .small
+            }
+          />
+          <Title>Chainlink</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Dai */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'dai').image.small,
+          )
+          setSelectedAsset({ name: 'Dai', symbol: 'DAI', id: 'dai' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={cryptoData.data.find((item) => item.id === 'dai').image.small}
+          />
+          <Title>Dai</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Decentraland */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'decentraland').image
+              .small,
+          )
+          setSelectedAsset({
+            name: 'Decentraland',
+            symbol: 'MANA',
+            id: 'decentraland',
+          })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'decentraland').image
+                .small
+            }
+          />
+          <Title>Decentraland</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Dogecoin */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'dogecoin').image.small,
+          )
+          setSelectedAsset({ name: 'Dogecoin', symbol: 'DOGE', id: 'dogecoin' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'dogecoin').image.small
+            }
+          />
+          <Title>Dogecoin</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Ethereum Classic */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'ethereum-classic').image
+              .small,
+          )
+          setSelectedAsset({
+            name: 'Ethereum Classic',
+            symbol: 'ETC',
+            id: 'ethereum-classic',
+          })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'ethereum-classic')
+                .image.small
+            }
+          />
+          <Title>Ethereum Classic</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Filecoin */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'filecoin').image.small,
+          )
+          setSelectedAsset({ name: 'Filecoin', symbol: 'FIL', id: 'filecoin' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'filecoin').image.small
+            }
+          />
+          <Title>Filecoin</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Litecoin */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'litecoin').image.small,
+          )
+          setSelectedAsset({ name: 'Litecoin', symbol: 'LTC', id: 'litecoin' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'litecoin').image.small
+            }
+          />
+          <Title>Litecoin</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Monero */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'monero').image.small,
+          )
+          setSelectedAsset({ name: 'Monero', symbol: 'XMR', id: 'monero' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'monero').image.small
+            }
+          />
+          <Title>Monero</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Ripple */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'ripple').image.small,
+          )
+          setSelectedAsset({ name: 'Ripple', symbol: 'XRP', id: 'ripple' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'ripple').image.small
+            }
+          />
+          <Title>Ripple</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Shiba Inu */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'shiba-inu').image.small,
+          )
+          setSelectedAsset({
+            name: 'Shiba Inu',
+            symbol: 'SHIB',
+            id: 'shiba-inu',
+          })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'shiba-inu').image
+                .small
+            }
+          />
+          <Title>Shiba Inu</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Solana */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'solana').image.small,
+          )
+          setSelectedAsset({ name: 'Solana', symbol: 'SOL', id: 'solana' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'solana').image.small
+            }
+          />
+          <Title>Solana</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Terra Luna */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'terrausd').image.small,
+          )
+          setSelectedAsset({
+            name: 'Terra Luna',
+            symbol: 'LUNA',
+            id: 'terrausd',
+          })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'terrausd').image.small
+            }
+          />
+          <Title>Terra Luna</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Tron */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'tron').image.small,
+          )
+          setSelectedAsset({ name: 'Tron', symbol: 'TRX', id: 'tron' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={cryptoData.data.find((item) => item.id === 'tron').image.small}
+          />
+          <Title>Tron</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Uniswap */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'uniswap').image.small,
+          )
+          setSelectedAsset({ name: 'Uniswap', symbol: 'UNI', id: 'uniswap' })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'uniswap').image.small
+            }
+          />
+          <Title>Uniswap</Title>
+        </Main>
+      </Wrapper>
+
+      {/* Wrapped Bitcoin */}
+      <Wrapper
+        onClick={() => {
+          setImageUrl(
+            cryptoData.data.find((item) => item.id === 'wrapped-bitcoin').image
+              .small,
+          )
+          setSelectedAsset({
+            name: 'Wrapped Bitcoin',
+            symbol: 'WBTC',
+            id: 'wrapped-bitcoin',
+          })
+          setAction('send')
+        }}
+      >
+        <Main>
+          <img
+            src={
+              cryptoData.data.find((item) => item.id === 'wrapped-bitcoin')
+                .image.small
+            }
+          />
+          <Title>Wrapped Bitcoin</Title>
         </Main>
       </Wrapper>
     </>

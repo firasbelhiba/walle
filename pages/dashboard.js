@@ -302,12 +302,42 @@ const Dashboard = () => {
       setTronBalance(balanceofTron)
       setUniswapBalance(balanceofUniswap)
       setWrappedBitcoinBalance(balanceofWrappedBitcoin)
-      await console.log('ddd', data)
     }
 
     // Only if you are connected
     account.data && web3 && getTotalBalance()
-  }, [account, thirdwebItems, sanityItems, data])
+  }, [
+    account,
+    thirdwebItems,
+    sanityItems,
+    data,
+    polygonBalance,
+    web3,
+    cryptoData,
+    polygonTokenContract,
+    polkadotTokenContract,
+    avalancheTokenContract,
+    axieInfinityTokenContract,
+    bitcoinTokenContract,
+    cardanoTokenContract,
+    chainlinkTokenContract,
+    daiTokenContract,
+    decentralandTokenContract,
+    dodgecoinTokenContract,
+    ethereumTokenContract,
+    fileCoinTokenContract,
+    ethereumClassicTokenContract,
+    liteCoinTokenContract,
+    moneroTokenContract,
+    rippleTokenContract,
+    shibaInuTokenContract,
+    solanaTokenContract,
+    stellarTokenContract,
+    terraTokenContract,
+    tronTokenContract,
+    uniswapTokenContract,
+    wrappedBitcoinTokenContract,
+  ])
 
   return (
     <div>

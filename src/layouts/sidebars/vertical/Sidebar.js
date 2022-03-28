@@ -12,6 +12,11 @@ Modal.setAppElement('#__next')
 
 const navigation = [
   {
+    title: 'Landing',
+    href: '/',
+    icon: 'bi bi-hdd-stack',
+  },
+  {
     title: 'Dashboard',
     href: '/dashboard',
     icon: 'bi bi-speedometer2',
@@ -21,51 +26,16 @@ const navigation = [
     href: '/assets',
     icon: 'bi bi-bell',
   },
-  {
-    title: 'Alert',
-    href: '/ui/alerts',
-    icon: 'bi bi-bell',
-  },
-  {
-    title: 'Badges',
-    href: '/ui/badges',
-    icon: 'bi bi-patch-check',
-  },
-  {
-    title: 'Buttons',
-    href: '/ui/buttons',
-    icon: 'bi bi-hdd-stack',
-  },
-  {
-    title: 'Cards',
-    href: '/ui/cards',
-    icon: 'bi bi-card-text',
-  },
-  {
-    title: 'Grid',
-    href: '/ui/grid',
-    icon: 'bi bi-columns',
-  },
-  {
-    title: 'Table',
-    href: '/ui/tables',
-    icon: 'bi bi-layout-split',
-  },
-  {
-    title: 'Forms',
-    href: '/ui/forms',
-    icon: 'bi bi-textarea-resize',
-  },
-  {
-    title: 'Breadcrumbs',
-    href: '/ui/breadcrumbs',
-    icon: 'bi bi-link',
-  },
-  {
-    title: 'About',
-    href: '/about',
-    icon: 'bi bi-people',
-  },
+  // {
+  //   title: 'Live prices',
+  //   href: '/live',
+  //   icon: 'bi bi-patch-check',
+  // },
+  // {
+  //   title: 'Transaction history',
+  //   href: '/history',
+  //   icon: 'bi bi-people',
+  // },
 ]
 
 const customStyles = {

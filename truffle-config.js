@@ -1,10 +1,30 @@
+const HDWalletProvider = require('@truffle/hdwallet-provider')
+const keys = require('./keys.json')
+
 module.exports = {
-  contracts_build_directory: "./public/contracts",
+  contracts_build_directory: './public/contracts',
   networks: {
     development: {
-      host: "127.0.0.1", // Localhost (default: none)
+      host: '127.0.0.1', // Localhost (default: none)
       port: 7545, // Standard Ethereum port (default: none)
-      network_id: "*", // Any network (default: none)
+      network_id: '*', // Any network (default: none)
+    },
+    ropsten: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: keys.MNEMONIC,
+          },
+          providerOrUrl:
+            'wss://ropsten.infura.io/ws/v3/c01f5b75603e40d2adc756e2d27e077e',
+          addressIndex: 0,
+        }),
+      network_id: 3,
+      gas: 5500000,
+      gasPrice: 20000000000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      networkCheckTimeout: 1000000000,
     },
   },
 
@@ -16,7 +36,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.10", // Fetch exact version from solc-bin (default: truffle's version)
+      version: '0.8.10', // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -27,4 +47,4 @@ module.exports = {
       // }
     },
   },
-};
+}
