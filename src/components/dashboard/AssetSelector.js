@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import AssetItem from './assetItem'
+import AssetItem from './AssetItem'
 
 const AssetSelector = ({
   setAction,
