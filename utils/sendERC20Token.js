@@ -17,85 +17,86 @@ export const sendERC20Token = async (
   contractAddress,
   owner,
 ) => {
-  // This code was written and tested using web3 version 1.0.0-beta.29
-  console.log(`web3 version: ${web3.version}`)
-  // Who holds the token now?
-  var myAddress = owner
-  // Who are we trying to send this token to?
-  var destAddress = dest
-  // MineFIL Token (MFIL) is divisible to 3 decimal places, 1 = 0.001 of MFIL
-  var transferAmount = 30
-  // Determine the nonce
-  var count = await web3.eth.getTransactionCount(myAddress)
-  console.log(`num transactions so far: ${count}`)
-  // MineFILToekn contract ABI Array
+  // // This code was written and tested using web3 version 1.0.0-beta.29
+  // console.log(`web3 version: ${web3.version}`)
+  // // Who holds the token now?
+  // var myAddress = owner
+  // // Who are we trying to send this token to?
+  // var destAddress = dest
+  // // MineFIL Token (MFIL) is divisible to 3 decimal places, 1 = 0.001 of MFIL
+  // var transferAmount = 30
+  // // Determine the nonce
+  // var count = await web3.eth.getTransactionCount(myAddress)
+  // console.log(`num transactions so far: ${count}`)
+  // // MineFILToekn contract ABI Array
 
-  // The address of the contract which created MFIL
-  //var contractAddress = '0xc3640bEF805117173d6d611a4775F95b2fA63060'
-  var contractAddress = contractAddress
+  // // The address of the contract which created MFIL
+  // //var contractAddress = '0xc3640bEF805117173d6d611a4775F95b2fA63060'
+  // var contractAddress = contractAddress
 
-  // var contract = new web3.eth.Contract(PolygonToken.abi, contractAddress, {
+  // // var contract = new web3.eth.Contract(PolygonToken.abi, contractAddress, {
+  // //   from: myAddress,
+  // // })
+
+  // var contract = contract
+  // // How many tokens do I have before sending?
+  // var balance = await contract.methods.balanceOf(myAddress).call()
+  // console.log(
+  //   `Balance before send: ${financialMfil(
+  //     balance,
+  //   )} MFIL\n------------------------`,
+  // )
+  // // I chose gas price and gas limit based on what ethereum wallet was recommending for a similar transaction. You may need to change the gas price!
+  // // Use Gwei for the unit of gas price
+  // var gasPriceGwei = 1
+  // var gasLimit = 3000000000000000
+  // // Chain ID of Ropsten Test Net is 3, replace it to 1 for Main Net
+  // var chainId = 3
+  // var rawTransaction = {
   //   from: myAddress,
-  // })
-
-  var contract = contract
-  // How many tokens do I have before sending?
-  var balance = await contract.methods.balanceOf(myAddress).call()
-  console.log(
-    `Balance before send: ${financialMfil(
-      balance,
-    )} MFIL\n------------------------`,
-  )
-  // I chose gas price and gas limit based on what ethereum wallet was recommending for a similar transaction. You may need to change the gas price!
-  // Use Gwei for the unit of gas price
-  var gasPriceGwei = 1
-  var gasLimit = 3000000
-  // Chain ID of Ropsten Test Net is 3, replace it to 1 for Main Net
-  var chainId = 3
-  var rawTransaction = {
-    from: myAddress,
-    nonce: '0x' + count.toString(16),
-    gas: '0xF4240',
-    gasPrice: '0x4A817C800',
-    gasLimit: web3.utils.toHex(gasLimit),
-    to: contractAddress,
-    value: '0x0',
-    data: contract.methods.transfer(destAddress, amount).encodeABI(),
-    chainId: chainId,
-  }
-  console.log(
-    `Raw of Transaction: \n${JSON.stringify(
-      rawTransaction,
-      null,
-      '\t',
-    )}\n------------------------`,
-  )
-  // The private key for myAddress in .env
-  var privKey = new Buffer(
-    'bde8f60dff4ce0c568614d2a9b4c084a8d082b4821409b451bfa8173ed86be42',
-    'hex',
-  )
-  var tx = new Tx(rawTransaction)
-  tx.sign(privKey)
-  var serializedTx = tx.serialize()
-  // Comment out these four lines if you don't really want to send the TX right now
-  console.log(
-    `Attempting to send signed tx:  ${serializedTx.toString(
-      'hex',
-    )}\n------------------------`,
-  )
-  var receipt = await web3.eth.sendSignedTransaction(
-    '0x' + serializedTx.toString('hex'),
-  )
-  // The receipt info of transaction, Uncomment for debug
-  console.log(
-    `Receipt info: \n${JSON.stringify(
-      receipt,
-      null,
-      '\t',
-    )}\n------------------------`,
-  )
-  // The balance may not be updated yet, but let's check
-  balance = await contract.methods.balanceOf(myAddress).call()
-  console.log(`Balance after send: ${financialMfil(balance)} MFIL`)
+  //   nonce: '0x' + count.toString(16),
+  //   gas: 5500000,
+  //   gasPrice: 20000000000,
+  //   gasLimit: web3.utils.toHex(gasLimit),
+  //   to: contractAddress,
+  //   value: '0x0',
+  //   data: contract.methods.transfer(destAddress, amount).encodeABI(),
+  //   chainId: chainId,
+  // }
+  // console.log(
+  //   `Raw of Transaction: \n${JSON.stringify(
+  //     rawTransaction,
+  //     null,
+  //     '\t',
+  //   )}\n------------------------`,
+  // )
+  // // The private key for myAddress in .env
+  // var privKey = new Buffer(
+  //   '904b73c3377d0e51a1a2e93cd0605a260af6a8080e2288b2f653b40308954a93',
+  //   'hex',
+  // )
+  // var tx = new Tx(rawTransaction)
+  // tx.sign(privKey)
+  // var serializedTx = tx.serialize()
+  // // Comment out these four lines if you don't really want to send the TX right now
+  // console.log(
+  //   `Attempting to send signed tx:  ${serializedTx.toString(
+  //     'hex',
+  //   )}\n------------------------`,
+  // )
+  // var receipt = await web3.eth.sendSignedTransaction(
+  //   '0x' + serializedTx.toString('hex'),
+  // )
+  // // The receipt info of transaction, Uncomment for debug
+  // console.log(
+  //   `Receipt info: \n${JSON.stringify(
+  //     receipt,
+  //     null,
+  //     '\t',
+  //   )}\n------------------------`,
+  // )
+  // // The balance may not be updated yet, but let's check
+  // balance = await contract.methods.balanceOf(myAddress).call()
+  // console.log(`Balance after send: ${financialMfil(balance)} MFIL`)
+  contract.methods.transfer(dest, amount).send({ from: owner })
 }

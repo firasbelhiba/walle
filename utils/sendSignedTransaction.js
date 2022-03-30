@@ -48,13 +48,14 @@ export const sendSignedTransaction = async (
   // I chose gas price and gas limit based on what ethereum wallet was recommending for a similar transaction. You may need to change the gas price!
   // Use Gwei for the unit of gas price
   var gasPriceGwei = 3
-  var gasLimit = 3000000
+  var gasLimit = 3000000000000000
   // Chain ID of Ropsten Test Net is 3, replace it to 1 for Main Net
   var chainId = 3
   var rawTransaction = {
     from: myAddress,
     nonce: '0x' + count.toString(16),
-    gasPrice: web3.utils.toHex(gasPriceGwei * 1e9),
+    gas: 5500000,
+    gasPrice: 20000000000,
     gasLimit: web3.utils.toHex(gasLimit),
     to: contractAddress,
     value: '0x0',
