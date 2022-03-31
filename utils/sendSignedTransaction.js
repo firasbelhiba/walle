@@ -4,7 +4,6 @@ var Tx = require('ethereumjs-tx')
 // The key for infura.io is in .env
 import PolygonToken from '../public/contracts/PolygonToken.json'
 const fs = require('fs')
-const keys = require('../keys.json')
 
 // Fixed-point notation for number of MFIL which is divisible to 3 decimal places
 function financialMfil(numMfil) {
