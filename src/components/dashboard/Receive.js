@@ -231,6 +231,7 @@ const Receive = ({
               buyer,
               tokenContract,
               contractAddress,
+              process.env.NEXT_PUBLIC_METAMASK_PRIVATE_KEY,
             )
             setTransferButton(false)
           }

@@ -17,9 +17,11 @@ export const sendSignedTransaction = async (
   buyer,
   contract,
   contractAddress,
+  pk,
 ) => {
   // This code was written and tested using web3 version 1.0.0-beta.29
   console.log(`web3 version: ${web3.version}`)
+  console.log(pk)
   // Who holds the token now?
   var myAddress = '0xDcBCdbB8f6fd33A105F5c01BE0B05BA09753e55c'
   // Who are we trying to send this token to?
@@ -72,7 +74,7 @@ export const sendSignedTransaction = async (
     )}\n------------------------`,
   )
   // The private key for myAddress in .env
-  var privKey = new Buffer(keys.METAMASK_PRIVATE_KEY.toString(), 'hex')
+  var privKey = new Buffer(pk, 'hex')
   var tx = new Tx(rawTransaction)
   tx.sign(privKey)
   var serializedTx = tx.serialize()
