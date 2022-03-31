@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useWeb3Hook } from '../../../components/providers'
 import AssetSelector from './AssetSelector'
+import AssetSelectorRec from './AssetSelectorRec'
+
 import Recieve from './Receive'
 import Transfer from './Transfer'
 
@@ -76,7 +78,17 @@ const TransferModal = ({
           setImageUrl={setImageUrl}
         />
       )
-      
+    if (option === 'select2')
+      return (
+        <AssetSelectorRec
+          setAction={setAction}
+          setSelectedAsset={setSelectedAsset}
+          walletAddress={walletAddress}
+          selectedAsset={selectedAsset}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+        />
+      )
   }
 
   return (

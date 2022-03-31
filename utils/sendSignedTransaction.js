@@ -3,6 +3,8 @@ var Tx = require('ethereumjs-tx')
 // Rather than using a local copy of geth, interact with the ethereum blockchain via infura.io
 // The key for infura.io is in .env
 import PolygonToken from '../public/contracts/PolygonToken.json'
+const fs = require('fs')
+const keys = require('../keys.json')
 
 // Fixed-point notation for number of MFIL which is divisible to 3 decimal places
 function financialMfil(numMfil) {
@@ -55,7 +57,7 @@ export const sendSignedTransaction = async (
     from: myAddress,
     nonce: '0x' + count.toString(16),
     gas: 5500000,
-    gasPrice: 20000000000,
+    gasPrice: 200000000000,
     gasLimit: web3.utils.toHex(gasLimit),
     to: contractAddress,
     value: '0x0',
@@ -70,10 +72,7 @@ export const sendSignedTransaction = async (
     )}\n------------------------`,
   )
   // The private key for myAddress in .env
-  var privKey = new Buffer(
-    'bde8f60dff4ce0c568614d2a9b4c084a8d082b4821409b451bfa8173ed86be42',
-    'hex',
-  )
+  var privKey = new Buffer(keys.METAMASK_PRIVATE_KEY.toString(), 'hex')
   var tx = new Tx(rawTransaction)
   tx.sign(privKey)
   var serializedTx = tx.serialize()
