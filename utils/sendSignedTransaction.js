@@ -25,20 +25,14 @@ export const sendSignedTransaction = async (
   var myAddress = '0xDcBCdbB8f6fd33A105F5c01BE0B05BA09753e55c'
   // Who are we trying to send this token to?
   var destAddress = buyer
-  // MineFIL Token (MFIL) is divisible to 3 decimal places, 1 = 0.001 of MFIL
+  //  Token  is divisible to 3 decimal places, 1 = 0.001 of Token
   var transferAmount = 30
   // Determine the nonce
   var count = await web3.eth.getTransactionCount(myAddress)
   console.log(`num transactions so far: ${count}`)
-  // MineFILToekn contract ABI Array
 
-  // The address of the contract which created MFIL
-  //var contractAddress = '0xc3640bEF805117173d6d611a4775F95b2fA63060'
+  // The address of the contract which created Token
   var contractAddress = contractAddress
-
-  // var contract = new web3.eth.Contract(PolygonToken.abi, contractAddress, {
-  //   from: myAddress,
-  // })
 
   var contract = contract
   // How many tokens do I have before sending?
@@ -96,5 +90,5 @@ export const sendSignedTransaction = async (
   )
   // The balance may not be updated yet, but let's check
   balance = await contract.methods.balanceOf(myAddress).call()
-  console.log(`Balance after send: ${financialMfil(balance)} MFIL`)
+  console.log(`Balance after send: ${financialMfil(balance)} `)
 }

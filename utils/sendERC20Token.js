@@ -2,7 +2,6 @@
 var Tx = require('ethereumjs-tx')
 // Rather than using a local copy of geth, interact with the ethereum blockchain via infura.io
 // The key for infura.io is in .env
-import PolygonToken from '../public/contracts/PolygonToken.json'
 
 // Fixed-point notation for number of MFIL which is divisible to 3 decimal places
 function financialMfil(numMfil) {

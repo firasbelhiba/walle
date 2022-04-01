@@ -16,7 +16,7 @@ module.exports = {
             phrase: keys.MNEMONIC,
           },
           providerOrUrl:
-            'wss://ropsten.infura.io/ws/v3/c01f5b75603e40d2adc756e2d27e077e',
+          process.env.NEXT_PUBLIC_INFURA,
           addressIndex: 0,
         }),
       network_id: 3,

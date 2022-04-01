@@ -199,7 +199,6 @@ export default function Web3Provider({ children }) {
             function (err, transactionHash) {
               if (!err) {
                 console.log(transactionHash + ' success')
-                //signTransaction(web3, polygonTokenContract)
                 //sendSignedTransaction(web3)
               }
             },
@@ -227,27 +226,6 @@ export default function Web3Provider({ children }) {
         //   data: data,
         // };
 
-        // web3.eth.accounts.signTransaction(
-        //   rawTx,
-        //   "78e20ad1aaf2807594d689596be844feab2e954e7d3bbe4da2894031101624a7",
-        //   (err, signedTx) => {
-        //     if (err) {
-        //       return callback(err);
-        //     } else {
-        //       console.log(signedTx);
-        //       return web3.eth.sendSignedTransaction(
-        //         signedTx.rawTransaction,
-        //         (err, res) => {
-        //           if (err) {
-        //             console.error(err);
-        //           } else {
-        //             console.log("success", res);
-        //           }
-        //         }
-        //       );
-        //     }
-        //   }
-        // );
         setWeb3Api({
           provider,
           web3,

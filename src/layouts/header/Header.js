@@ -89,7 +89,7 @@ const Header = ({ showMobmenu }) => {
             )}
           </NavItem>
         </Nav>
-        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+        {/* <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="secondary">
             <div style={{ lineHeight: '0px' }}>
               <Image
@@ -110,7 +110,7 @@ const Header = ({ showMobmenu }) => {
             <DropdownItem>Inbox</DropdownItem>
             <DropdownItem>Logout</DropdownItem>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown> */}
       </Collapse>
     </Navbar>
   )

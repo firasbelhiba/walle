@@ -7,6 +7,7 @@ import TransferModal from '../../../components/dashboard/TransferModal'
 import { useBalance } from '../../../../components/web3/hooks/useBalance'
 import { useAccount } from '../../../../components/web3/hooks/useAccount'
 import { useEffect, useState } from 'react'
+import { useWeb3Hook } from '../../../../components/providers'
 
 Modal.setAppElement('#__next')
 
@@ -59,6 +60,7 @@ const Sidebar = ({ showMobilemenu }) => {
   const location = curl.pathname
   const [transferButton, setTransferButton] = useState(false)
   const { account } = useAccount()
+  const { web3 , provider } = useWeb3Hook();
 
   return (
     <div className="p-3">
@@ -89,14 +91,16 @@ const Sidebar = ({ showMobilemenu }) => {
               </Link>
             </NavItem>
           ))}
-          <Button
-            color="primary"
-            tag="a"
-            className="mt-3"
-            onClick={() => setTransferButton(true)}
-          >
-            Send / Recieve
-          </Button>
+          {web3 && (
+            <Button
+              color="primary"
+              tag="a"
+              className="mt-3"
+              onClick={() => setTransferButton(true)}
+            >
+              Send / Recieve
+            </Button>
+          )}
         </Nav>
         <Modal
           isOpen={transferButton}
